@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
 import 'screens/catalogue_screen.dart';
 import 'screens/clients_screen.dart';
 import 'screens/invoice_screen.dart';
@@ -20,12 +22,14 @@ class PlaquesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const red = Color(0xFFC62828);
+
     final scheme = ColorScheme.fromSeed(
       seedColor: red,
       brightness: Brightness.light,
       primary: red,
       secondary: const Color(0xFF8E0000),
     );
+
     return MaterialApp(
       title: 'Aluminum Ainaki',
       debugShowCheckedModeBanner: false,
@@ -40,13 +44,16 @@ class PlaquesApp extends StatelessWidget {
         ),
         navigationBarTheme: NavigationBarThemeData(
           indicatorColor: red.withValues(alpha: 0.14),
-          labelTextStyle: WidgetStateProperty.resolveWith((states) =>
-              TextStyle(
-                color: states.contains(WidgetState.selected) ? red : Colors.black87,
-                fontWeight: states.contains(WidgetState.selected)
-                    ? FontWeight.w700
-                    : FontWeight.w500,
-              )),
+          labelTextStyle: WidgetStateProperty.resolveWith(
+            (states) => TextStyle(
+              color: states.contains(WidgetState.selected)
+                  ? red
+                  : Colors.black87,
+              fontWeight: states.contains(WidgetState.selected)
+                  ? FontWeight.w700
+                  : FontWeight.w500,
+            ),
+          ),
         ),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: red,
@@ -71,6 +78,7 @@ class PlaquesApp extends StatelessWidget {
 
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
+
   @override
   State<HomeShell> createState() => _HomeShellState();
 }
@@ -94,8 +102,11 @@ class _HomeShellState extends State<HomeShell> {
 
   Future<void> _loadLanguage() async {
     final language = await AppDatabase.instance.readSetting('language');
+
     if (mounted && _arabic != (language == 'ar')) {
-      setState(() => _arabic = language == 'ar');
+      setState(() {
+        _arabic = language == 'ar';
+      });
     }
   }
 
@@ -112,41 +123,50 @@ class _HomeShellState extends State<HomeShell> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: IndexedStack(index: _index, children: _pages),
+        child: IndexedStack(
+          index: _index,
+          children: _pages,
+        ),
       ),
-      
-bottomNavigationBar: Directionality(
-  textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
-  child: NavigationBar(
-    selectedIndex: _index,
-    labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-    onDestinationSelected: (i) => setState(() => _index = i),
-    destinations: [
-      NavigationDestination(
-        icon: const Icon(Icons.local_shipping_outlined),
-        label: _arabic ? 'التوزيع' : 'Tournée',
+      bottomNavigationBar: Directionality(
+        textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
+        child: NavigationBar(
+          selectedIndex: _index,
+          labelBehavior:
+              NavigationDestinationLabelBehavior.onlyShowSelected,
+          onDestinationSelected: (i) {
+            setState(() {
+              _index = i;
+            });
+          },
+          destinations: [
+            NavigationDestination(
+              icon: const Icon(Icons.local_shipping_outlined),
+              label: _arabic ? 'التوزيع' : 'Tournee',
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.receipt_long),
+              label: _arabic ? 'الفاتورة' : 'Facture',
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.search),
+              label: _arabic ? 'بحث' : 'Chercher',
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.history),
+              label: _arabic ? 'السجل' : 'Histor.',
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.view_list),
+              label: _arabic ? 'المخزون' : 'Stock',
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.people),
+              label: _arabic ? 'الزبناء' : 'Clients',
+            ),
+          ],
+        ),
       ),
-      NavigationDestination(
-        icon: const Icon(Icons.receipt_long),
-        label: _arabic ? 'الفاتورة' : 'Facture',
-      ),
-      NavigationDestination(
-        icon: const Icon(Icons.search),
-        label: _arabic ? 'بحث' : 'Chercher',
-      ),
-      NavigationDestination(
-        icon: const Icon(Icons.history),
-        label: _arabic ? 'السجل' : 'Histor.',
-      ),
-      NavigationDestination(
-        icon: const Icon(Icons.view_list),
-        label: _arabic ? 'المخزون' : 'Stock',
-      ),
-      NavigationDestination(
-        icon: const Icon(Icons.people),
-        label: _arabic ? 'الزبناء' : 'Clients',
-      ),
-    ],
-  ),
-),
-
+    );
+  }
+}
