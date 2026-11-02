@@ -471,7 +471,7 @@ class _DistributionScreenState extends State<DistributionScreen> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    final direction = _arabic ? TextDirection.rtl : TextDirection.ltr;
+    final direction = _arabic ? ui.TextDirection.rtl : ui.TextDirection.ltr;
     return Directionality(textDirection: direction, child: Scaffold(
       appBar: AppBar(title: Row(mainAxisSize: MainAxisSize.min, children: [const SharkLogo(size: 30), const SizedBox(width: 8), Text(tr('Distribution', 'التوزيع'))]),
         actions: [TextButton(onPressed: _toggleLanguage, child: Text(_arabic ? 'FR' : 'عربي', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))],
