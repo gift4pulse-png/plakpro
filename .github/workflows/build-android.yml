@@ -1,10 +1,11 @@
 
-name: Plaques Pro Android APK
+name: Aluminum Ainaki Android APK
 
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 permissions:
   contents: read
@@ -12,15 +13,19 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-java@v4
+    steps:
+      - name: Download project
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
@@ -28,24 +33,26 @@ jobs:
       - name: Generate Android project
         run: |
           if [ ! -d android ]; then
-            flutter create --platforms=android --org ma.plaques --project-name AluminumAinaki .
+            flutter create --platforms=android --org ma.plaques --project-name aluminumainaki .
           fi
 
-             sed -i 's/android:label="[^"]*"/android:label="Aluminum Ainaki"/' android/app/src/main/AndroidManifest.xml
+      - name: Set app display name
+        run: |
+          sed -i 's/android:label="[^"]*"/android:label="Aluminum Ainaki"/' android/app/src/main/AndroidManifest.xml
 
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Check Dart code
+      - name: Analyze Dart code
         continue-on-error: true
         run: flutter analyze
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Save APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: Plaques-Pro-Copy-APK
+          name: Aluminum-Ainaki-release-APK
           path: build/app/outputs/flutter-apk/app-release.apk
           retention-days: 14
