@@ -36,7 +36,7 @@ class PlaquesApp extends StatelessWidget {
           elevation: 0,
           centerTitle: false,
         ),
-        cardTheme: CardTheme(
+        cardTheme: CardThemeData(
           color: Colors.white,
           elevation: 0,
           margin: const EdgeInsets.symmetric(vertical: 5),
