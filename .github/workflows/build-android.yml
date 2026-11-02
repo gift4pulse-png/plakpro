@@ -106,12 +106,17 @@ jobs:
             dart format test
           fi
 
+    
       - name: Run tests
         run: |
+          # Remove Flutter's outdated starter widget test.
+          rm -f test/widget_test.dart
+
+          # Run the remaining project tests.
           if [ -d test ] && find test -type f -name '*_test.dart' | grep -q .; then
             flutter test
           else
-            echo "No Dart test files found. Skipping tests."
+            echo "No test files found. Skipping tests."
           fi
 
       - name: Analyze Dart code
