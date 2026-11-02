@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../db/app_database.dart';
@@ -53,7 +54,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   Widget build(BuildContext context) {
     final df = DateFormat('dd/MM/yyyy');
     final items = _visibleItems;
-    return Directionality(textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr, child: Scaffold(
+    return Directionality(textDirection: _arabic ? ui.TextDirection.rtl : ui.TextDirection.ltr, child: Scaffold(
       appBar: AppBar(
         title: Row(mainAxisSize: MainAxisSize.min, children: [
           const SharkLogo(size: 32), const SizedBox(width: 8), Text(tr('Historique', 'السجل')),
