@@ -114,20 +114,39 @@ class _HomeShellState extends State<HomeShell> {
       body: SafeArea(
         child: IndexedStack(index: _index, children: _pages),
       ),
-      bottomNavigationBar: Directionality(
-        textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
-        child: NavigationBar(
-        selectedIndex: _index,
-        onDestinationSelected: (i) => setState(() => _index = i),
-        destinations: [
-          NavigationDestination(icon: const Icon(Icons.local_shipping_outlined), label: _arabic ? 'التوزيع' : 'Distribution'),
-          NavigationDestination(icon: const Icon(Icons.receipt_long), label: _arabic ? 'الفاتورة' : 'Facture'),
-          NavigationDestination(icon: const Icon(Icons.search), label: _arabic ? 'البحث' : 'Recherche'),
-          NavigationDestination(icon: const Icon(Icons.history), label: _arabic ? 'السجل' : 'Historique'),
-          NavigationDestination(icon: const Icon(Icons.view_list), label: _arabic ? 'الكتالوج' : 'Catalogue'),
-          NavigationDestination(icon: const Icon(Icons.people), label: _arabic ? 'العملاء' : 'Clients'),
-        ],
-      )),
-    );
-  }
-}
+      
+bottomNavigationBar: Directionality(
+  textDirection: _arabic ? TextDirection.rtl : TextDirection.ltr,
+  child: NavigationBar(
+    selectedIndex: _index,
+    labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+    onDestinationSelected: (i) => setState(() => _index = i),
+    destinations: [
+      NavigationDestination(
+        icon: const Icon(Icons.local_shipping_outlined),
+        label: _arabic ? 'التوزيع' : 'Tournée',
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.receipt_long),
+        label: _arabic ? 'الفاتورة' : 'Facture',
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.search),
+        label: _arabic ? 'بحث' : 'Chercher',
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.history),
+        label: _arabic ? 'السجل' : 'Histor.',
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.view_list),
+        label: _arabic ? 'المخزون' : 'Stock',
+      ),
+      NavigationDestination(
+        icon: const Icon(Icons.people),
+        label: _arabic ? 'الزبناء' : 'Clients',
+      ),
+    ],
+  ),
+),
+
