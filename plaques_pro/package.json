@@ -1,8 +1,0 @@
-{
-  "name": "plaques-pro-v2-build",
-  "version": "2.0.0",
-  "private": true,
-  "scripts": {
-    "build:apk": "node build_apk.js"
-  }
-}
