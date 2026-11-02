@@ -28,8 +28,10 @@ jobs:
       - name: Generate Android project
         run: |
           if [ ! -d android ]; then
-            flutter create --platforms=android --org ma.plaques --project-name plaques_pro_copy .
+            flutter create --platforms=android --org ma.plaques --project-name AluminumAinaki .
           fi
+
+             sed -i 's/android:label="[^"]*"/android:label="Aluminum Ainaki"/' android/app/src/main/AndroidManifest.xml
 
       - name: Install dependencies
         run: flutter pub get
